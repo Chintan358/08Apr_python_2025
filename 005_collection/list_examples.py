@@ -75,4 +75,4 @@ a = [5,4,3,6,7,8,4,1]
 # print(b)
 
 print(a.count(4))
-print(a.index(5))
+print(a.index(5))  

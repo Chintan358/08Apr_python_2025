@@ -162,3 +162,18 @@ for i in range(lines,0,-1):
 # DEF 
 # GHIJ
 # KLMNO
+
+# for i in range(1,6):
+#     for j in range(1,i+1):
+#         if(i%2==j%2):
+#             print("0",end="")
+#         else:
+#             print("1",end="")
+
+#     print()
+
+
+for i in range(1,6):
+    for j in range(1,i+1):
+        print((i+j)%2,end="")
+    print()
