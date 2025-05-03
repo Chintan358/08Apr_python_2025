@@ -46,3 +46,12 @@ st = {
 # print(l[5]['city'])
 
 
+# d = {
+#     "name":"Harsh",
+#     "email":"harsh@gmail.com",
+#     "subject":["python","java","c++","c++"],
+#     "language":frozenset({"eng","hindi","gujarati","gujarati"}),
+# }
+
+# print(d)
+
