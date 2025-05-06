@@ -61,3 +61,32 @@ def test():
 print(a)
 test()
 print(a)
+
+
+#prime number
+
+# def is_prime(n):
+#     if n <= 1:                    
+#         return False
+#     for i in range(2, int(n**0.5) + 1):
+#         if n % i == 0:
+#             return False
+#     return True
+# def prime_numbers(n):
+#     primes = []
+#     for i in range(2, n + 1):
+
+
+
+#*
+#**
+#***
+#****
+#*****
+
+# def print_star(n):
+#     for i in range(n):    
+#         for j in range(i+1):
+#             print("*",end="")
+#         print()
+#     return primes
