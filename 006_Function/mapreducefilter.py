@@ -52,7 +52,7 @@ def checkpsquare(a):
 
 from functools import reduce
 
-a = [10,20,30,40,50,60]
+a = [10,20,3,40,5,60,87,1,5,26]
 
 # def sum(x,y):
 #     # print(x,y)
@@ -60,6 +60,15 @@ a = [10,20,30,40,50,60]
 
 # k = reduce(sum,a)
 # k = reduce(lambda x,y:x+y,a)
-k = reduce(lambda x,y: max(x,y),a)
+
+def checkmax(x,y):
+    if x>y:
+        return x    
+    else:
+        return y
+
+
+
+k = reduce(checkmax,a)
 print(k)
 
