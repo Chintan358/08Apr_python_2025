@@ -46,3 +46,12 @@ import calendar
 # print(calendar.calendar(3050))
 
 # print(calendar.month(2025,5))
+
+
+import requests
+
+k = requests.get("https://restcountries.com/v3.1/all")
+data = k.json()
+
+for i in data : 
+    print(i['name']['common'])
