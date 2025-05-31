@@ -23,4 +23,4 @@ class Dog(Animal):
 
 
 d = Dog()
-print(d.speak())  # Output: Animal speaks
+print(d.speak(10,20))  # Output: Animal speaks
