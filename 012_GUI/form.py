@@ -1,11 +1,6 @@
 import tkinter as tk
 import mysql.connector
-
-
 # Connect to MySQL database
-
-
-
 root  = tk.Tk()
 
 def submit_form():
@@ -26,9 +21,6 @@ def submit_form():
     name_entry.delete(0, tk.END)
     email_entry.delete(0, tk.END)
     print("Form submitted successfully!")
-
-
-
 root.title("Form Example")
 root.geometry("500x500")
 
