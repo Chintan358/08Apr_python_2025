@@ -1,0 +1,33 @@
+Create VENV : 
+py -m venv <envname>
+envname/script/activate
+
+Install django : 
+pip install django
+
+create project : 
+py -m django startproject <project_name> .
+
+create app : 
+py manage.py startapp <appname>
+
+register app in settiong.py file : 
+installed_app  :[
+    '<appname>'
+]
+
+run djangoproject : 
+py manage.py runserver
+
+
+to scan db changes : 
+py manage.py makemigrations
+
+to apply db changes : 
+py manage.py migrate
+
+crate admin login : 
+py manage.py createsuperuser
+
+
+
