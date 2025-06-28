@@ -29,5 +29,74 @@ py manage.py migrate
 crate admin login : 
 py manage.py createsuperuser
 
+*************************************************
+create templates folder in app 
+create html pages in this forlder
+
+---static resource--- [css, js, image] 
+STATIC_URL = '/static'
+STATICFILES_DIRS = [
+        <STATIC FOLDER PATH>
+]
+
+---dynamic resource---
+MEDIA_URL = '/MEDIA'
+MEDIA_ROOT = <MEDIA FOLDER PATH>
+
+-----USE STATIC RESOUCE IN HTML----
+{%laod static%} - in html file
+
+
+--------base.html-------
+commoncode----
+-------------
+
+{%block content%}{%endbloack%}
+--------------
+---------------
+--------------
+
+use base .html in html :
+{%extends 'base.html'%}
+
+
+*******************MODAL*****************
+create modle models.py : 
+ex : 
+class Student(models.model):
+        fieldname : datatypes
+
+register modle in admin : 
+---import modle in admin file
+admin.site.register(Model name)
+
+*******************Shell***************
+py manage.py shell
+
+ORM : 
+
+insert data : Ref [Studnet(name,email,age)] 
+
+st = Student(name="",email="",age=)
+st.save()
+
+Student.object.create(name="",email="",age=)
+
+viewData : 
+Student.objects.all()
+Student.objects.get(id or pk = 1)
+
+deletedata : 
+
+st  =Student.objects.get(id or pk = 1)
+st.delete()
+
+update : 
+st = Student.objects.get(id or pk = 1)
+st.name = ""
+st.email=""
+st.age = 
+st.save()
+
 
 
