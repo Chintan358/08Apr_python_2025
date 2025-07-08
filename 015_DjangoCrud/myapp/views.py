@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from myapp.models import *
+import os
 # Create your views here.
 def index(request):
     return render(request,"index.html")
@@ -12,8 +13,9 @@ def reg(request):
         email = data.get('email')
         phone =data.get('phone')
         age = data.get('age')
+        img = request.FILES['file']
         
-        st = Student.objects.create(name=name,email=email,phone=phone,age=age)
+        st = Student.objects.create(name=name,email=email,phone=phone,age=age,img=img)
         if st:
             return render(request,'index.html',{"msg":"Registration success"})
 
@@ -27,6 +29,7 @@ def display(request):
 def delete(request):
     id =  request.GET['id']
     student = Student.objects.get(id=id)
+    os.remove(f"media/{student.img}")
     student.delete()
     return redirect("display")
 
@@ -38,12 +41,20 @@ def update(request):
         email = data.get('email')
         phone =data.get('phone')
         age = data.get('age')
+       
+       
+            
         
         st = Student.objects.get(id=id)
         st.name = name
         st.email =email
         st.phone = phone
         st.age = age
+        if request.FILES:
+            os.remove(f"media/{st.img}")
+            st.img=request.FILES['file']
+            
+
 
         st.save()
         return redirect("display")

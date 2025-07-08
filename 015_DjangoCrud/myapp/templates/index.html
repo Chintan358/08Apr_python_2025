@@ -18,7 +18,7 @@
           <h2 align="center">Student Registration</h2>
           <span class="text-success">{{msg}}</span>
           <hr />
-          <form action="{%url 'reg'%}" method="post">
+          <form action="{%url 'reg'%}" method="post" enctype="multipart/form-data">
             {%csrf_token%}
             <input
               type="text"
@@ -47,6 +47,9 @@
               placeholder="Enter age"
               class="form-control"
             />
+            <br />
+            <input type="file" name="file" class="form-control" />
+
             <br />
             <input type="submit" class="btn btn-success" />
             <a href="{%url 'display'%}">View All Students</a>

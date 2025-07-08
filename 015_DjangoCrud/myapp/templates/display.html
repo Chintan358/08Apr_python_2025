@@ -20,6 +20,7 @@
           <table class="table">
             <tr>
               <th>ID</th>
+              <th>Image</th>
               <th>Name</th>
               <th>Email</th>
               <th>Phone</th>
@@ -29,6 +30,15 @@
             {%for i in students%}
             <tr>
               <td>{{i.id}}</td>
+              <th>
+                <img
+                  src="media/{{i.img}}"
+                  ,
+                  alt="{{i.img}}"
+                  width="50px"
+                  height="50px"
+                />
+              </th>
               <td>{{i.name}}</td>
               <td>{{i.email}}</td>
               <td>{{i.phone}}</td>
