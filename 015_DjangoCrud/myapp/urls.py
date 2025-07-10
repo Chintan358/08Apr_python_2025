@@ -7,10 +7,15 @@ from django.conf.urls.static import static
 
 urlpatterns = [
 
-    path('',index,name="index"),
+    path('index',index,name="index"),
     path("reg",reg,name="reg"),
     path('display',display,name="display"),
     path('delete',delete,name="delete"),
-    path('update',update,name="update")
+    path('update',update,name="update"),
+
+    path("",user_login,name="user-login"),
+    path("user-reg",user_reg,name="user-reg")
+
+
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

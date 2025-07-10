@@ -1,23 +1,31 @@
 from django.shortcuts import render,redirect
 from myapp.models import *
 import os
+from django.contrib.auth.models import User
+
+
 # Create your views here.
 def index(request):
-    return render(request,"index.html")
+    alldept = Dept.objects.all()
+    return render(request,"index.html",{"depts":alldept})
 
 def reg(request):
     if request.method=='POST':
         data = request.POST
         
+        deptid = data.get('dept')
         name = data.get('name')
         email = data.get('email')
         phone =data.get('phone')
         age = data.get('age')
         img = request.FILES['file']
+        dept = Dept.objects.get(pk=deptid)
+
         
-        st = Student.objects.create(name=name,email=email,phone=phone,age=age,img=img)
+        st = Student.objects.create(name=name,email=email,phone=phone,age=age,img=img,dept=dept)
         if st:
-            return render(request,'index.html',{"msg":"Registration success"})
+           # return render(request,'index.html',{"msg":"Registration success"})
+           return redirect("index")
 
     return render(request,'index.html')
 
@@ -63,3 +71,24 @@ def update(request):
     id =  request.GET['id']
     student = Student.objects.get(id=id)
     return render(request,"update.html",{"student":student})
+
+
+
+def user_login(request):
+    return render(request,"login.html")
+
+def user_reg(request):
+    if request.method=='POST':
+        data = request.POST
+        first_name = data.get('first_name')
+        last_name = data.get('last_name')
+        email = data.get('email')
+        username = data.get('username')
+        password = data.get('password')
+
+        u = User(first_name=first_name,last_name=last_name,username=username,email=email)
+        u.set_password(password)
+        u.save()
+
+
+    return render(request,"reg.html ")

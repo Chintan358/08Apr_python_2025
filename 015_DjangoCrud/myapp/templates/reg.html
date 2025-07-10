@@ -15,26 +15,24 @@
     <div class="container">
       <div class="row">
         <div class="col-5 mx-auto card p-5 mt-5">
-          <h2 align="center">Student Registration</h2>
+          <h2 align="center">User Registration</h2>
           <span class="text-success">{{msg}}</span>
           <hr />
-          <form
-            action="{%url 'reg'%}"
-            method="post"
-            enctype="multipart/form-data"
-          >
+          <form action="" method="post">
             {%csrf_token%}
-            <select name="dept" id="dept" class="form-control">
-              <option value="0">---select department---</option>
-              {%for dept in depts%}
-              <option value="{{dept.id}}">{{dept.name}}</option>
-              {%endfor%}
-            </select>
+
             <br />
             <input
               type="text"
-              name="name"
-              placeholder="Enter name"
+              name="first_name"
+              placeholder="Enter firstname"
+              class="form-control"
+            />
+            <br />
+            <input
+              type="text"
+              name="last_name"
+              placeholder="Enter lastname"
               class="form-control"
             />
             <br />
@@ -47,23 +45,20 @@
             <br />
             <input
               type="text"
-              name="phone"
-              placeholder="Enter phone"
+              name="username"
+              placeholder="Enter username"
               class="form-control"
             />
             <br />
             <input
-              type="text"
-              name="age"
-              placeholder="Enter age"
+              type="password"
+              name="password"
+              placeholder="Enter password"
               class="form-control"
             />
             <br />
-            <input type="file" name="file" class="form-control" />
-
-            <br />
             <input type="submit" class="btn btn-success" />
-            <a href="{%url 'display'%}">View All Students</a>
+            <a href="{%url 'user-login'%}">Already Registed? login here</a>
           </form>
         </div>
       </div>
