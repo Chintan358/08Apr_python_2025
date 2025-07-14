@@ -14,7 +14,8 @@ urlpatterns = [
     path('update',update,name="update"),
 
     path("",user_login,name="user-login"),
-    path("user-reg",user_reg,name="user-reg")
+    path("user-reg",user_reg,name="user-reg"),
+    path("user-logout",user_logout,name="user-logout")
 
 
     

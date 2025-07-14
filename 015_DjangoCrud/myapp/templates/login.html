@@ -10,13 +10,33 @@
       integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
       crossorigin="anonymous"
     />
+    <style>
+      .alert-error {
+        background-color: #f8d7da;
+      }
+    </style>
   </head>
   <body>
     <div class="container">
       <div class="row">
         <div class="col-5 mx-auto card p-5 mt-5">
           <h2 align="center">User Login</h2>
-          <span class="text-success">{{msg}}</span>
+          {% if messages %} {% for message in messages %}
+          <div
+            class="alert alert-{{message.tags}} alert-dismissible fade show"
+            role="alert"
+          >
+            {{message}}
+            <button
+              type="button"
+              class="close"
+              data-dismiss="alert"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          {% endfor %} {% endif %}
           <hr />
           <form action="" method="post">
             {%csrf_token%}
