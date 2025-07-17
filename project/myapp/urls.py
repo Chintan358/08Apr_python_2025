@@ -15,6 +15,10 @@ urlpatterns = [
     path("shop",shop,name="shop"),
     path("wishlist",wishlist,name="wishlist"),
     # create path for search
+
+    path("userReg",userReg,name="userReg"),
+    path("userLogin",userLogin,name="userLogin"),
+    path("userLogout",userLogout,name="userLogout")
     
 
 

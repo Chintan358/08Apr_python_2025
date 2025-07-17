@@ -74,10 +74,14 @@ WSGI_APPLICATION = 'crudapp.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+     'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': '08apr_crudapp',      # Name of your MySQL database
+            'USER': 'root',    # MySQL username
+            'PASSWORD': 'root', # MySQL password
+            'HOST': 'localhost',          # Or the IP/hostname of your MySQL server
+            'PORT': '3306',               # MySQL port (default is 3306)
+        }
 }
 
 

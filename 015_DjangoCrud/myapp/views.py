@@ -80,6 +80,10 @@ def update(request):
 
 
 def user_login(request):
+
+    if request.user.is_authenticated:
+        return redirect("display")
+
     try:
         if request.method=='POST':
             data = request.POST
