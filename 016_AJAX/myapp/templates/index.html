@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      $(document).ready(function () {
+        countries();
+      });
+
+      const submit = () => {
+        var name = $("#name").val();
+
+        $.get("reg", { name }, function (rt) {
+          alert(rt);
+        });
+      };
+
+      const search = (product) => {
+        $.get("search", { product }, function (rt) {
+          var list = "<ul>";
+          rt.data.map((ele) => {
+            list += `<li>${ele.name}</li>`;
+          });
+          list += "</ul>";
+
+          $("#products").html(list);
+        });
+      };
+
+      const countries = () => {
+        $.get("countries", {}, function (rt) {
+          var options = "<option>---Select Country---</option>";
+          rt.data.map((ele) => {
+            options += `<option value=${ele.id}>${ele.name}</option>`;
+          });
+
+          $("#country").html(options);
+        });
+      };
+
+      const states = (cid) => {
+        $.get("states", { cid }, function (rt) {
+          
+          var options = "<option>---Select State---</option>";
+          rt.data.map((ele) => {
+            options += `<option value=${ele.id}>${ele.name}</option>`;
+          });
+
+          $("#state").html(options);
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <input type="text" id="name" name="name" />
+    <button onclick="submit()">Submit</button>
+
+    <br />
+    <hr />
+
+    <input type="text" name="search" id="search" onkeyup="search(value)" />
+    <div id="products"></div>
+
+    <br />
+    <hr />
+
+    <select name="country" id="country" onchange="states(value)">
+      <option value="0">---select country---</option>
+    </select>
+
+    <select name="state" id="state">
+      <option value="0">---select state---</option>
+    </select>
+
+    <select name="city" id="city">
+      <option value="0">---select city---</option>
+    </select>
+  </body>
+</html>
