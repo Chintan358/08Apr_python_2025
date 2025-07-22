@@ -29,4 +29,7 @@ def states(request):
 
 
 def cities(request):
-    pass
+    
+    sid = request.GET['sid']
+    allcities = City.objects.filter(state=sid)
+    return JsonResponse({"data":list(allcities.values())})

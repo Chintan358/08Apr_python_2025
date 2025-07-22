@@ -57,6 +57,19 @@
           $("#state").html(options);
         });
       };
+
+
+      const cities = (sid) => {
+        $.get("cities", { sid }, function (rt) {
+          
+          var options = "<option>---Select city---</option>";
+          rt.data.map((ele) => {
+            options += `<option value=${ele.id}>${ele.name}</option>`;
+          });
+
+          $("#city").html(options);
+        });
+      };
     </script>
   </head>
   <body>
@@ -76,7 +89,7 @@
       <option value="0">---select country---</option>
     </select>
 
-    <select name="state" id="state">
+    <select name="state" id="state" onchange="cities(value)">
       <option value="0">---select state---</option>
     </select>
 
