@@ -1,6 +1,8 @@
 
 from django.urls import path,include
 from myapp.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     
     path("",index,name="index"),
@@ -10,7 +12,7 @@ urlpatterns = [
     path("cart",cart,name="cart"),
     path("checkout",checkout,name="checkout"),
     path("compare",compare,name="compare"),
-    path("details/<int:id>",details,name="details"),
+    path("details",details,name="details"),
     path("login-register",login_register,name="login_register"),
     path("shop",shop,name="shop"),
     path("wishlist",wishlist,name="wishlist"),
@@ -19,8 +21,6 @@ urlpatterns = [
     path("userReg",userReg,name="userReg"),
     path("userLogin",userLogin,name="userLogin"),
     path("userLogout",userLogout,name="userLogout")
-    
-
-
-    
+      
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

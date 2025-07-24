@@ -115,6 +115,31 @@
             })
         }
     
+
+        const search = (keyword)=>{
+           
+                $.get("search",{keyword},function(rt){
+ 
+                var rows=""
+                rt.data.map(ele=>{
+                    rows+=`<tr>
+                        <td>${ele.id}</td>
+                        <td>${ele.name}</td>
+                        <td>${ele.email}</td>
+                        <td>${ele.phone}</td>
+                        <td>${ele.age}</td>
+                        <td><button class='btn btn-danger' onclick='deletestduent(${ele.id})'>Delete</button></td>
+                        <td><button class='btn btn-primary' onclick='studentbyid(${ele.id})'>Update</button></td>
+                        </tr>`
+                })
+                
+                $("#tdata").html(rows)
+
+            })
+
+
+        }
+
     </script>
 
 </head>
@@ -146,6 +171,8 @@
                     <div class="col-1"></div>
                     <div class="col-7 card p-3">
                         <h2 align="center">Student Details</h2>
+                        <hr>
+                        <input type="text" name="search" id="search" placeholder="search..." class="form-control" onkeyup="search(value)">
                         <hr>
                         <table class="table">
                             <thead>

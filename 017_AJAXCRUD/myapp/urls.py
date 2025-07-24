@@ -9,6 +9,7 @@ urlpatterns = [
     path("reg",reg,name="reg"),
     path("deletestudent",deletestudent,name="deletestudent"),
     path("studentbyid",studentbyid,name="studentbyid"),
-    path("update",update,name="update")
+    path("update",update,name="update"),
+    path("search",search,name="search")
 
 ]

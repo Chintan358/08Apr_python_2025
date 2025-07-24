@@ -32,6 +32,7 @@ def studentbyid(request):
     return JsonResponse({"data":list(student.values())})
 
 def update(request):
+
     if request.method=='POST':
         data = request.POST
         id = data.get("id")
@@ -48,3 +49,10 @@ def update(request):
         student.save()
        
         return HttpResponse("Update success !!!")
+    
+
+
+def search(request):
+    keyword = request.GET['keyword']
+    allStudents = Student.objects.filter(name__startswith=keyword)
+    return JsonResponse({"data":list(allStudents.values())})

@@ -2,10 +2,21 @@ from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
+from myapp.models import *
 
 # Create your views here.
 def index(request):
-    return render(request,"index.html")
+
+    allCategories = Category.objects.all()
+    allProducts = Product.objects.all()
+    try :
+        catid = request.GET['catid']
+        allProducts = Product.objects.filter(category_id=catid)
+
+
+        return render(request,"index.html",{"categories":allCategories,"products":allProducts})
+    except Exception as e :
+         return render(request,"index.html",{"categories":allCategories,"products":allProducts})
 
 @login_required(login_url="login_register")
 def accounts(request):
@@ -22,8 +33,9 @@ def checkout(request):
 def compare(request):
     return render(request,"compare.html") 
   
-def details(request,id):
-    return render(request,"details.html",{"id":id})
+def details(request):
+    product = Product.objects.get(pk=request.GET['pid'])
+    return render(request,"details.html",{"product":product})
 
 def login_register(request):
     return render(request,"login-register.html")
