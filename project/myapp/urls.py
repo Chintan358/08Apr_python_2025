@@ -20,7 +20,11 @@ urlpatterns = [
 
     path("userReg",userReg,name="userReg"),
     path("userLogin",userLogin,name="userLogin"),
-    path("userLogout",userLogout,name="userLogout")
+    path("userLogout",userLogout,name="userLogout"),
+
+    path("addtocart",addtocart,name="addtocart"),
+    path("deletecart",deletecart,name="deletecart"),
+    path("changeqty",changeqty,name="changeqty")
       
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

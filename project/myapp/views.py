@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
@@ -24,7 +24,14 @@ def accounts(request):
 
 @login_required(login_url="login_register")
 def cart(request):
-    return render(request,"cart.html")
+
+    carts = Cart.objects.filter(user=request.user)
+    sum = 0
+    for c in carts:
+        sum+=(c.product.price*c.qty)
+    print(sum)
+
+    return render(request,"cart.html",{"carts":carts,"sum":sum})
 
 @login_required(login_url="login_register")
 def checkout(request):
@@ -83,3 +90,41 @@ def userLogin(request):
 def userLogout(request):
     logout(request)
     return redirect("index")
+
+
+def addtocart(request):
+    pid  =request.GET['pid']
+    user = request.user
+    if user.is_authenticated:
+        product = Product.objects.get(pk=pid)
+
+        cartitem = Cart.objects.filter(user=user,product=product)
+        if cartitem:
+            cartitem[0].qty=cartitem[0].qty+1
+            cartitem[0].save()
+            return HttpResponse("product added into cart !!!!")
+        
+        else :  
+            Cart.objects.create(user=user,product=product)
+            return HttpResponse("product added into cart !!!!")
+    else:
+        return HttpResponse(user)
+    
+
+def deletecart(request):
+    cid = request.GET['cid']
+    cart = Cart.objects.get(pk=cid)
+    cart.delete()
+    return HttpResponse("cart deleted !!!")
+
+
+def changeqty(request):
+    cid = request.GET['cid']
+    qty = request.GET['qty']
+    cart = Cart.objects.get(pk=cid)
+    if  int(qty) <=0:
+        cart.delete()
+    else :
+        cart.qty = qty
+        cart.save()
+    return HttpResponse("qty updated !!!")
