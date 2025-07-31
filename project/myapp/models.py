@@ -25,5 +25,8 @@ class Cart(models.Model):
     
     def subTotal(self):
         return self.product.price*self.qty
-
+    
+class Address(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    address = models.TextField()
     

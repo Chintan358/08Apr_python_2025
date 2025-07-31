@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from myapp.models import *
 
 # Create your views here.
@@ -35,7 +36,13 @@ def cart(request):
 
 @login_required(login_url="login_register")
 def checkout(request):
-    return render(request,"checkout.html")
+    carts = Cart.objects.filter(user=request.user)
+    sum = 0
+    for c in carts:
+        sum+=(c.product.price*c.qty)
+    print(sum)
+
+    return render(request,"checkout.html",{"carts":carts,"sum":sum})
 
 def compare(request):
     return render(request,"compare.html") 
@@ -128,3 +135,16 @@ def changeqty(request):
         cart.qty = qty
         cart.save()
     return HttpResponse("qty updated !!!")
+
+@login_required(login_url="login_register")
+def address(request):
+    address = request.GET['address']
+    user = request.user
+
+    Address.objects.create(user=user,address=address)
+    return HttpResponse("address Added")
+
+def get_address(request):
+    allAddress = Address.objects.filter(user = request.user)
+    return JsonResponse({"address":list(allAddress.values())})
+                                        
