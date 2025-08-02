@@ -4,6 +4,8 @@ from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from myapp.models import *
+import razorpay
+from datetime import date
 
 # Create your views here.
 def index(request):
@@ -148,3 +150,35 @@ def get_address(request):
     allAddress = Address.objects.filter(user = request.user)
     return JsonResponse({"address":list(allAddress.values())})
                                         
+
+def pay(request):
+
+
+    amt = round(float(request.GET['amt']))
+    print(amt)
+    client = razorpay.Client(auth=("rzp_test_6T4aCyCyT7g7Ye", "UQrxO31xR8FIAw6U1mA0DO2i"))
+
+    data = { "amount": amt*100, "currency": "INR", "receipt": "order_rcptid_11" }
+    payment = client.order.create(data=data) 
+   
+    return JsonResponse(payment)
+
+def makeorder(request):
+    payid = request.GET['payid']
+    adr = request.GET['adr']
+    user = request.user
+
+    carts = Cart.objects.filter(user=request.user)
+    sum = 0
+    for c in carts:
+        sum+=(c.product.price*c.qty)
+    
+
+
+    ord =  CustomerOrder.objects.create(user=user,date=date.today(),total=sum,payid=payid,address=Address.objects.get(pk=adr))
+
+    for c in carts:
+        CustomerOrderItems.objects.create(order=ord,product=c.product,qty=c.qty,price=c.product.price)
+        c.delete()
+
+    return HttpResponse("order confirm !!!!")

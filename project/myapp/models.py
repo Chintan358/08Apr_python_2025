@@ -29,4 +29,18 @@ class Cart(models.Model):
 class Address(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     address = models.TextField()
+
+
+class CustomerOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    total = models.FloatField()
+    payid = models.CharField()
+    address = models.ForeignKey(Address,on_delete=models.CASCADE)
     
+class CustomerOrderItems(models.Model):
+    order = models.ForeignKey(CustomerOrder,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    qty = models.IntegerField()
+    price = models.FloatField()
+

@@ -27,7 +27,11 @@ urlpatterns = [
     path("changeqty",changeqty,name="changeqty"),
 
     path("address",address,name="address"),
-    path("get-address",get_address,name="get-address")
+    path("get-address",get_address,name="get-address"),
+
+     path("pay",pay,name="pay"),
+
+     path("makeorder",makeorder,name="makeorder")
       
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
