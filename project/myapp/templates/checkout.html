@@ -147,7 +147,7 @@
     e.preventDefault();
 
     var amt = $('#amt').html()
-    alert(amt)
+
     $.get("pay", { amt }, function (rt) {
 
 
@@ -160,14 +160,14 @@
         "image": "https://example.com/your_logo",
         "order_id": rt.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
         "handler": function (response) {
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature)
+          // alert(response.razorpay_payment_id);
+          // alert(response.razorpay_order_id);
+          // alert(response.razorpay_signature)
 
           var adr = $("input[name='adr']").val();
           $.get("makeorder", { "payid": response.razorpay_payment_id, adr }, function (rt) {
             alert(rt)
-            loaction.reload()
+            location.href = "accounts"
           })
         },
         "prefill": {

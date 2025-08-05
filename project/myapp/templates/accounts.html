@@ -48,40 +48,43 @@
         <div class="tab__content" content id="orders">
           <h3 class="tab__header">Your Orders</h3>
           <div class="tab__body">
+            {%for order in orders%}
             <table class="placed__order-table">
               <thead>
                 <tr>
-                  <th>Orders</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                  <th>Totals</th>
-                  <th>Actions</th>
+                  <th>Order Id : {{order.id}}</th>
+                  <th>Date : {{order.date}}</th>
+                  <th rowspan="2" colspan="3">Total : {{order.total}}</th>
+                </tr>
+                <tr>
+                  <th>Payment Id : {{order.payid}}</th>
+                  <th>Address : {{order.address.address}}</th>
+                </tr>
+                <tr>
+                  <th>Image</th>
+                  <th>name</th>
+                  <th>qty</th>
+                  <th>Price</th>
+                  <th>subtotal</th>
                 </tr>
               </thead>
               <tbody>
+
+                {%for item in order.items.all%}
                 <tr>
-                  <td>#1357</td>
-                  <td>March 19, 2022</td>
-                  <td>Processing</td>
-                  <td>$125.00</td>
-                  <td><a href="#" class="view__order">View</a></td>
+                  <td>{{item.product.name}}</td>
+                  <td><img src="media/{{item.product.image}}" alt="{{item.product.image}}" width="50px" height="50px">
+                  </td>
+                  <td>{{item.qty}}</td>
+                  <td>{{item.price}}</td>
+                  <td>{{item.subTotal}}</td>
                 </tr>
-                <tr>
-                  <td>#2468</td>
-                  <td>June 29, 2022</td>
-                  <td>Completed</td>
-                  <td>$364.00</td>
-                  <td><a href="#" class="view__order">View</a></td>
-                </tr>
-                <tr>
-                  <td>#2366</td>
-                  <td>August 02, 2022</td>
-                  <td>Completed</td>
-                  <td>$280.00</td>
-                  <td><a href="#" class="view__order">View</a></td>
-                </tr>
+                {%endfor%}
+
               </tbody>
             </table>
+            <br><br>
+            {%endfor%}
           </div>
         </div>
         <div class="tab__content" content id="update-profile">

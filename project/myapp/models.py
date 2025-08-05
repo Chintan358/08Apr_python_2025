@@ -39,8 +39,10 @@ class CustomerOrder(models.Model):
     address = models.ForeignKey(Address,on_delete=models.CASCADE)
     
 class CustomerOrderItems(models.Model):
-    order = models.ForeignKey(CustomerOrder,on_delete=models.CASCADE)
+    order = models.ForeignKey(CustomerOrder,on_delete=models.CASCADE,related_name='items')
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
-    qty = models.IntegerField()
+    qty = models.IntegerField(default=0)
     price = models.FloatField()
 
+    def subTotal(self):
+        return self.price*self.qty

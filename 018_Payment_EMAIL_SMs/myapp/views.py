@@ -1,6 +1,9 @@
 from django.shortcuts import render,HttpResponse
 import razorpay
 from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 
 
@@ -16,3 +19,15 @@ def pay(request):
     payment = client.order.create(data=data) 
    
     return JsonResponse(payment)
+
+
+def send_simple_email(request):
+        send_mail(
+            "Test mail",
+            "Testing",
+            settings.EMAIL_HOST_USER,  # Sender's email
+            ["chintan.tops@gmail.com"],            # List of recipient emails
+            fail_silently=False, 
+            html_message ='<h1>Hello</h1>'     
+        )
+        return HttpResponse("mail sent")

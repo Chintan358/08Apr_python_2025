@@ -6,6 +6,8 @@ from django.http import JsonResponse
 from myapp.models import *
 import razorpay
 from datetime import date
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 def index(request):
@@ -23,7 +25,8 @@ def index(request):
 
 @login_required(login_url="login_register")
 def accounts(request):
-    return render(request,"accounts.html")
+    all_orders = CustomerOrder.objects.filter(user=request.user)
+    return render(request,"accounts.html",{"orders":all_orders})
 
 @login_required(login_url="login_register")
 def cart(request):
@@ -180,5 +183,22 @@ def makeorder(request):
     for c in carts:
         CustomerOrderItems.objects.create(order=ord,product=c.product,qty=c.qty,price=c.product.price)
         c.delete()
+
+    msg = f"<table border='1' cellspacing='0' cellpadding='5'><thead><tr><th>Order Id :{ord.id}</th><th>Date : {ord.date}</th><th rowspan='2' colspan='3'>Total: {ord.total}</th></tr><tr><th>Payment Id : {ord.payid}</th><th>Address : {ord.address.address}</th></tr><tr><th>name</th><th>qty</th><th>Price</th><th>subtotal</th></tr></thead><tbody>"
+
+    for item in ord.items.all():
+        msg+=f"<tr><td>{item.product.name}</td><td>{item.qty}</td><td>{item.price}</td><td>{item.price*item.qty}</td></tr>"
+                          
+    msg+="</tbody></table>"
+
+    
+    send_mail(
+            "Order confirmation",
+            "Your Order is confirm",
+            settings.EMAIL_HOST_USER,  # Sender's email
+            [user.email],            # List of recipient emails
+            fail_silently=False, 
+            html_message =msg   
+        )
 
     return HttpResponse("order confirm !!!!")
