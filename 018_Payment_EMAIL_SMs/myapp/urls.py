@@ -6,5 +6,7 @@ urlpatterns = [
 
     path("pay",pay,name="pay"),
 
-    path('sendmail',send_simple_email,name="sendmail")
+    path('sendmail',send_simple_email,name="sendmail"),
+    path("sendsms",send_sms,name="sendsms"),
+    path("products",get_products,name="products")
 ]

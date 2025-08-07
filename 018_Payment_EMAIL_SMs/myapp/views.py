@@ -3,6 +3,8 @@ import razorpay
 from django.http import JsonResponse
 from django.core.mail import send_mail
 from django.conf import settings
+import requests
+import json
 
 
 
@@ -31,3 +33,28 @@ def send_simple_email(request):
             html_message ='<h1>Hello</h1>'     
         )
         return HttpResponse("mail sent")
+
+
+def send_sms(request):
+     
+    url = "https://www.fast2sms.com/dev/bulkV2"
+
+    querystring = {"authorization":"WXfAe5cjnlMG0thTkdLD9IsgRyZbS7w41UzP3H8mKiqQNVEova9vDJtywEXpMNoUieOfPlq1r8HhdnTL","message":"This is test message","language":"english","route":"q","numbers":"7096980289"}
+
+    headers = {
+        'cache-control': "no-cache"
+    }
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+
+    print(response.text)
+    return HttpResponse(response.text)
+
+
+def get_products(request):
+     
+     url ="https://fakestoreapi.com/products"
+
+     data = requests.get(url)
+     
+     return render(request,'product.html',{"products":data.json()})
