@@ -9,7 +9,9 @@ urlpatterns = [
    path("deletedata/<id>",delete_data,name="deletedata"),
 
 
-    path("students",get_students,name="students")
-
+    path("students",get_students,name="students"),
+    path("setstudent",set_student,name="setstudent"),
+    path("updatestudent/<id>",update_student,name="updatestudent"),
+    path("deletestudent/<id>",delete_student,name="deletestudent")
 
 ]

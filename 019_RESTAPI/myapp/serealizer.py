@@ -4,5 +4,5 @@ from myapp.models import *
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Stduent
-        # fields='__all__'
-        exclude=['name']
+        fields='__all__'
+        # exclude=['name']
