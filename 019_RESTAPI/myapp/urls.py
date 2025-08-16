@@ -12,6 +12,9 @@ urlpatterns = [
     path("students",get_students,name="students"),
     path("setstudent",set_student,name="setstudent"),
     path("updatestudent/<id>",update_student,name="updatestudent"),
-    path("deletestudent/<id>",delete_student,name="deletestudent")
+    path("deletestudent/<id>",delete_student,name="deletestudent"),
+
+
+    path("employees",EmpAPI.as_view())
 
 ]

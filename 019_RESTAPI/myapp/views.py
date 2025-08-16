@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.views import APIView
 from myapp.models import *
 from myapp.serealizer import *
+from rest_framework import status
 
 @api_view(['POST'])
 def add_data(request):
@@ -68,3 +70,53 @@ def delete_student(request,id):
     except Exception as e :
         return Response({"message":"something went wrong"})
     pass
+
+
+
+class EmpAPI(APIView):
+
+    def get(self,request):
+        try:
+            emps = Emp.objects.all()
+            ser = EmpSerializer(emps, many=True)
+            return Response({"data":ser.data})
+        except Exception as e :
+            return Response({"errors":"Somethong went wrong"})
+    
+    def post(self,request):
+        try:
+            ser = EmpSerializer(data=request.data)
+            if not ser.is_valid():
+                return Response({"Errors":ser.errors,"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+            else:
+                ser.save()
+                return Response({"data":ser.data,"message":"Data inserted successfully !!!"},status=status.HTTP_201_CREATED)
+        except Exception as e : 
+            print(e)
+            return Response({"message":"something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+       
+    def put(self,request):
+        try:
+            emp= Emp.objects.filter(pk=request.data['id'])
+            if not emp:
+                return Response({"message":"Id not found"},status=status.HTTP_404_NOT_FOUND)
+            ser = EmpSerializer(emp[0], request.data,partial=True)
+            if not ser.is_valid():
+                  return Response({"Errors":ser.errors,"message":"something went wrong"},status=status.HTTP_400_BAD_REQUEST)
+            else:
+                ser.save()
+                return Response({"data":ser.data,"message":"Data updated successfully !!!"},status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            return Response({"message":"something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+    def delete(self,request):
+        try:
+            emp= Emp.objects.filter(pk=request.data['id'])
+            if not emp:
+                return Response({"message":"Id not found"},status=status.HTTP_404_NOT_FOUND)
+            emp.delete()
+            return Response({"message":"Emp deleted successfully"},status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({"message":"something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
