@@ -120,3 +120,53 @@ class EmpAPI(APIView):
             return Response({"message":"Emp deleted successfully"},status=status.HTTP_200_OK)
         except Exception as e:
             return Response({"message":"something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+
+
+class BookAPI(APIView):
+
+    def get(self,request):
+        try:
+            allBooks = Book.objects.all()
+            ser = BookSerializer(allBooks,many=True)
+            return Response({"data":ser.data})
+        except Exception as e:
+            return Response({"message":"something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    def post(self,request):
+        try:
+            ser = BookSerializer(data= request.data )
+            if not ser.is_valid():
+                return Response({"Errors":ser.errors,"message":"somethong went wrong"},status=status.HTTP_400_BAD_REQUEST)
+            else:
+                data = ser.save()
+                return Response({"data":ser.data,"message":"Book inserted successfully"},status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(e)
+            return Response({"message":"something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+    def put(self,request):
+        try:
+
+            books = Book.objects.get(pk=request.data['id'])
+            ser = BookSerializer(books, request.data)
+            if not ser.is_valid():
+                return Response({"Errors":ser.errors,"message":"somethong went wrong"},status=status.HTTP_400_BAD_REQUEST)
+            else:
+                data = ser.save()
+                return Response({"data":ser.data,"message":"Book updated successfully"},status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(e)
+            return Response({"message":"something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    def delete(self,request):
+        try:
+
+            books = Book.objects.get(pk=request.data['id'])
+            books.delete()
+            return Response({"message":"Book Deleted successfully"},status=status.HTTP_201_CREATED)
+        except Exception as e:
+            print(e)
+            return Response({"message":"something went wrong"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    

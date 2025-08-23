@@ -17,3 +17,23 @@ class EmpSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Salary must be grater than 5000")
         
         return attrs
+    
+
+class AuthorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Author
+        fields='__all__'
+
+
+class BookSerializer(serializers.ModelSerializer):
+    # author=AuthorSerializer()
+    class Meta:
+        model=Book
+        fields='__all__'
+
+    def to_representation(self, instance):
+
+        representation = super().to_representation(instance)
+        representation['author'] = AuthorSerializer(instance.author).data
+       
+        return representation

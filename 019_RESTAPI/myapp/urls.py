@@ -15,6 +15,10 @@ urlpatterns = [
     path("deletestudent/<id>",delete_student,name="deletestudent"),
 
 
-    path("employees",EmpAPI.as_view())
+    path("employees",EmpAPI.as_view()),
+
+    path("books",BookAPI.as_view())
+
+
 
 ]

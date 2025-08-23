@@ -35,7 +35,7 @@ class CustomerOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     total = models.FloatField()
-    payid = models.CharField()
+    payid = models.CharField(max_length=20)
     address = models.ForeignKey(Address,on_delete=models.CASCADE)
     
 class CustomerOrderItems(models.Model):
